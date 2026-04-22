@@ -1,0 +1,27 @@
+# FILE: .github/workflows/ci_docker.yml
+name: CI Pipeline - FX Extractor
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  # --- JOB 1: CHẠY BÀI TEST LOGIC ---
+  test-logic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tải mã nguồn
+        uses: actions/checkout@v3
+      
+      - name: Cài đặt Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Cài đặt thư viện
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+          
+      - name: Thực thi Test
+        run: pytest test_app.py -v
